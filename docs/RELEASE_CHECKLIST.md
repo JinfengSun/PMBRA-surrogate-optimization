@@ -2,10 +2,8 @@
 
 - [ ] Select a code license (MIT, BSD-3-Clause, GPL-3.0, or another approved
   license) and confirm compatibility with any later-added CEC2019 assets.
-- [ ] Confirm the final repository title, author list, affiliations, contact
-  email, article DOI, and preferred citation.
-- [ ] Confirm whether `paper/manuscript.tex` may be public before journal
-  acceptance and whether the corresponding-author email should remain visible.
+- [ ] Confirm the final repository title, author list, article DOI, and
+  preferred citation metadata; manuscript source is intentionally excluded.
 - [x] Exclude DNN outputs and optimization/statistical result files.
 - [x] Include `Force Table 1_7.csv` as public training data.
 - [ ] Confirm that `de1.csv`, `Nc1.csv`, and `Nn1.csv` remain request-only.

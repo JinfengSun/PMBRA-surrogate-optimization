@@ -18,9 +18,8 @@ result tables are intentionally excluded.
 - `benchmarks/cec2019/`: complete supplied benchmark driver, problem functions,
   reference PS/PF datasets, and indicator functions.
 - `statistics/`: statistical-analysis source code, without result files.
-- `simulation/`: sanitized ANSYS Maxwell 2D project, instructions, and screenshots.
+- `simulation/`: sanitized ANSYS Maxwell 2D project and run instructions.
 - `figures/`: plotting source code, without generated DNN-result figures.
-- `paper/`: matching manuscript source and bibliography.
 
 ## Environment
 
@@ -110,6 +109,10 @@ The 4096-case training dataset is public in this repository. External validation
 sweeps may be made available upon reasonable request. DNN and optimization
 results are deliberately not included; users should regenerate them using the
 released code and authorized dependencies.
+
+The manuscript source (`.tex`), bibliography, publication PDFs, and paper
+figures are intentionally excluded so that this repository remains focused on
+code and reproducibility inputs.
 
 See `docs/FILE_MANIFEST.md`, `docs/EXCLUDED_FILES.md`, and
 `docs/RELEASE_CHECKLIST.md` before publication.

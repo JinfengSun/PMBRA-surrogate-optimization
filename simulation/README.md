@@ -15,4 +15,5 @@ found. No separate `.aedtresults` solution/cache directory is distributed;
 solve the project locally to regenerate simulation outputs.
 
 `3D_Maxwell_Run_Instructions.md` describes the separate proposed 3D validation
-protocol. The two PNG files are project/report reference screenshots.
+protocol. Project/report screenshots are intentionally excluded from the
+code-focused repository.

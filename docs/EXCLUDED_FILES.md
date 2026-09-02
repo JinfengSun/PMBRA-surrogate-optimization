@@ -24,6 +24,8 @@
   latest authoritative files.
 - Superseded manuscript variants, reviewer-response editing scripts, and
   deprecated SPD-DN-NSGA-II copies.
+- All manuscript `.tex`, bibliography `.bib`, publication PDF/DOCX files, and
+  nonessential paper/simulation screenshots.
 - `MMODE_ES.m` and `test_compare_mmode_es.m` as unrelated post-paper comparison
   work. The newly supplied paper benchmark driver is used instead.
 

@@ -4,7 +4,7 @@
 
 - `data/public/Force Table 1_7.csv`: 4096-case FEA training dataset.
 - `simulation/PMBRA_Maxwell2D.aedt`: sanitized Maxwell 2D project.
-- `simulation/3D_Maxwell_Run_Instructions.md` and screenshots.
+- `simulation/3D_Maxwell_Run_Instructions.md`.
 
 ## DNN and analysis code
 
@@ -27,8 +27,9 @@
 
 ## Documentation
 
-- `README.md`, dependency and ignore files, paper source, bibliography, and the
-  files under `docs/`.
+- `README.md`, dependency and ignore files, and the files under `docs/`.
 
 Saved DNN outputs, trained weights, optimization populations/fronts, algorithm
 metric tables, generated statistics, figures, caches, and logs are excluded.
+Manuscript `.tex`, bibliography, publication PDFs, and nonessential screenshots
+are also excluded to keep the repository code-focused.
