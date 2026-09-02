@@ -1,0 +1,823 @@
+%%%%%%%%%%%%%%%%%%%%%%% file template.tex %%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% This is a general template file for the LaTeX package SVJour3
+% for Springer journals.          Springer Heidelberg 2010/09/16
+%
+% Copy it to a new file with a new name and use it as the basis
+% for your article. Delete % signs as needed.
+%
+% This template includes a few options for different layouts and
+% content for various journals. Please consult a previous issue of
+% your journal as needed.
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% First comes an example EPS file -- just ignore it and
+% proceed on the \documentclass line
+% your LaTeX will extract the file if required
+\begin{filecontents*}{example.eps}
+%!PS-Adobe-3.0 EPSF-3.0
+%%BoundingBox: 19 19 221 221
+%%CreationDate: Mon Sep 29 1997
+%%Creator: programmed by hand (JK)
+%%EndComments
+gsave
+newpath
+  20 20 moveto
+  20 220 lineto
+  220 220 lineto
+  220 20 lineto
+closepath
+2 setlinewidth
+gsave
+  .4 setgray fill
+grestore
+stroke
+grestore
+\end{filecontents*}
+%
+\RequirePackage{fix-cm}
+%
+%\documentclass{svjour3}                     % onecolumn (standard format)
+%\documentclass[smallcondensed]{svjour3}     % onecolumn (ditto)
+%\documentclass[smallextended]{svjour3}       % onecolumn (second format)
+\documentclass[twocolumn]{svjour3}          % twocolumn
+%
+\usepackage{lineno,hyperref}
+\usepackage{amsmath}
+\usepackage{booktabs} %调整表格线与上下内容的间隔
+\usepackage{multirow}
+\usepackage{array}
+\usepackage{amsmath}
+\usepackage{subfig}
+\usepackage{booktabs} %调整表格线与上下内容的间隔
+\usepackage{multirow}
+\usepackage{threeparttable}
+\usepackage{bm}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage {soul, color, xcolor}
+%\usepackage{algorithmic}
+%\usepackage{graphicx}
+\usepackage{textcomp}
+%\usepackage{ntheorem}
+\usepackage{enumitem}
+\usepackage{ntheorem}
+\usepackage[T1]{fontenc}
+\emergencystretch=2em
+%\newtheorem{theorem}{\bf Theorem}
+%\newtheorem{definition}{\bf Definition}
+%\newtheorem{lemma}{\bf Lemma}
+%\newtheorem{corollary}{\bf Corollary}
+%\newtheorem{remark}{\bf Remark}
+%\newtheorem{assumption}{\bf Assumption}
+%\newtheorem*{proof}{\bf Proof}
+\newlist{abbrv}{itemize}{1}
+\setlist[abbrv,1]{label=,labelwidth=1in,align=parleft,itemsep=0.1\baselineskip,leftmargin=!}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage[misc]{ifsym}
+%\newtheorem{theorem}{\bf Theorem}
+%\newtheorem{definition}{\bf Definition}
+%\newtheorem{lemma}{\bf Lemma}
+%\newtheorem{corollary}{\bf Corollary}
+%\newtheorem{remark}{\bf Remark}
+\newtheorem{assumption}{\bf Assumption}
+%\newtheorem*{proof}{\bf Proof}
+\modulolinenumbers[5]
+\smartqed  % flush right qed marks, e.g. at end of proof
+%
+\usepackage{graphicx}
+\makeatletter  
+\newif\if@restonecol  
+\makeatother  
+%\let\algorithm\relax  
+%\let\endalgorithm\relax  
+%\usepackage[linesnumbered,ruled,vlined]{algorithm2e}%[ruled,vlined]{  
+%\usepackage{algpseudocode}   
+\renewcommand{\algorithmicrequire}{\textbf{Input:}} % Use Input in the format of Algorithm  
+\renewcommand{\algorithmicensure}{\textbf{Output:}} % Use Output in the format of Algorithm
+\modulolinenumbers[5]
+%
+% \usepackage{mathptmx}      % use Times fonts if available on your TeX system
+%
+% insert here the call for the packages your document requires
+%\usepackage{latexsym}
+% etc.
+%
+% please place your own definitions here and don't use \def but
+% \newcommand{}{}
+%
+% Insert the name of "your journal" with
+% \journalname{myjournal}
+%
+\begin{document}
+
+\title{Surrogate-Assisted Multi-objective Structural Optimization of a Permanent-Magnet Bridged Reluctance Actuator}
+%\subtitle{Do you have a subtitle?\\ If so, write it here}
+%
+%%\titlerunning{Short form of title}        % if too long for running head
+
+\author{Jinfeng Sun         \and
+        Yunlang Xu \Letter  \and
+        Xuchu Jiang \and
+        Yu Sun \and
+        Haibo Zhou
+}
+
+%\authorrunning{Short form of author list} % if too long for running head
+
+\institute{Jinfeng Sun \and Yunlang Xu\Letter \and Haibo Zhou \at
+         	School of Mechanical and Electrical Engineering, Central South University, Changsha, 410083, China.\\
+            State Key Laboratory of Precision Manufacturing for Extreme Service Performance, Central South University, Changsha, 410083, China. \\
+			Xuchu Jiang
+			\at
+			School of Statistics and Mathematics, Zhongnan University of Economics and Law, Wuhan, 430073, China\\
+			Yu Sun
+			\at
+			Shanghai Engineering Research Center of Ultra-Precision Motion Control
+			and Measurement, College of Intelligent Robotics and Advanced Manufacturing, Fudan University, Shanghai, China\\
+			Corresponding author: Yunlang Xu\\			\email{xuyunlang@csu.edu.cn}  \\
+}
+
+\date{Received: date / Accepted: date}
+% The correct dates will be entered by the editor
+
+
+\maketitle
+
+\begin{abstract}
+The permanent-magnet bridged reluctance actuator (PMBRA) offers high thrust density for precision linear-drive applications, but its nonlinear magnetic coupling makes repeated finite-element analysis (FEA) computationally expensive during structural optimization. This study investigates a simulation-based design framework that combines a deep-neural-network (DNN) surrogate with a multimodal multi-objective evolutionary algorithm. A full-factorial dataset of 4096 two-dimensional FEA cases was generated from four structural inputs ($N_c$, $N_n$, $d_e$, and $g$). A 64--32--16 DNN was assessed by a fixed 80/20 hold-out, five-fold cross-validation with five deterministic seeds, and a 168-point intermediate-grid test. Across the admissible stack-depth range (37.6--60.0 mm), five-fold MAE and RMSE were 10.04--16.03 N and 13.20--21.06 N, respectively; the intermediate-grid values were 3.95--6.30 N and 5.74--9.17 N. The surrogate was then coupled to SPD-DN-NSGA-II. Run-level tests on 22 CEC2019 problems found significant suite-level differences for rPSP, rHV, IGDX, and IGDF ($p<10^{-5}$), with the principal advantage occurring in decision-space metrics. Objective-space performance remained mixed. The PMBRA results are conditional on two-dimensional model-depth scaling and do not constitute three-dimensional or prototype validation.
+Within a pre-specified comparison against five low-complexity surrogate baselines, the DNN achieved the lowest MAE and RMSE in both five-fold and 168-point validation.
+\keywords{Reluctance motor drive \and structural optimization design \and surrogate model \and multi-objective optimization.}
+% \PACS{PACS code1 \and PACS code2 \and more}
+%\subclass{MSC code1 \and MSC code2 \and more}
+\end{abstract}
+\section{Introduction}
+\label{sec:introduction}
+Reluctance actuators (RAs), leveraging their high thrust density and motion resolution, have demonstrated advantages in precision-motion applications such as scanning galvanometers \cite{pechgraber2023resonant,pechhacker2024decreasing}, fast tool servo systems \cite{huang2022modeling}, fast-scanning nanopositioners \cite{shan2013design}, and magnetic-levitation positioning systems \cite{kim2007design}. In ultra-precision equipment such as lithography-machine micro-stages, however, the RA drive is constrained by limited installation space and allowable power consumption. Increasing thrust per unit volume can increase copper loss, so thrust density and force-to-power performance must be considered simultaneously.
+\par RAs inherently trade off thrust density and force-to-power performance. Increasing magnetic loading and excitation to improve thrust density can increase copper loss and thermal loading \cite{krishnan2001srm,boldea2014electric}. This trade-off is particularly important in ultra-precision motion systems, which require a balance between dynamic performance and thermal stability \cite{trumper2003magnetically,butler2011precision}. Joint optimization of these two indicators is therefore a core design problem.
+\par Accurate electromagnetic modeling is a prerequisite for evaluating RAs. Magnetic saturation, leakage flux, and air-gap variation are strongly coupled \cite{pillay2002modeling,ionel2007computation}, which limits the accuracy of simple analytical models over a broad design space. MacKenzie et al. \cite{mackenzie2015design} incorporated hysteresis and eddy-current dynamics, whereas Ramirez and Perriard \cite{ramirez2019hybrid} used FEA to correct fringing-flux errors in a hybrid magnetic-equivalent-circuit model. In hybrid RAs, coupling between permanent-magnet bias flux and excitation flux adds further complexity \cite{boldea2008synchronous}. Existing leakage-flux compensation factors \cite{alizadeh2019modeling} and equivalent permanent-magnet thickness models for bridge saturation \cite{liu2022analytical} can agree with FEA at selected operating points, but their fitted nonlinear coefficients are generally tied to a fixed geometry \cite{bolognani2011design}; their use in broad structural optimization is therefore limited.
+
+\par To overcome the limitations of purely analytical modeling, data-driven approaches have been increasingly adopted for electric machines and actuators with strong nonlinear behaviors \cite{vagati2012design}. By learning the mapping between system inputs and outputs directly from data, these methods can capture complex nonlinear and time-varying dynamics that are difficult to describe using conventional analytical models \cite{cheng2024review,raissi2019physics}.
+The effectiveness of data-driven and simulation-assisted modeling has been demonstrated across various engineering applications. Parametric numerical studies can reveal complex structure--performance relationships and support subsequent optimization. For example, the influence of the angle of attack of triply periodic minimal surface structures on airflow characteristics has been investigated for the optimal design of filters and static mixers \cite{mduma2026influence}. In reluctance actuators, Zhao et al. \cite{zhao2025coupled} developed a coupled structure--electromagnetism--thermal surrogate model that substantially reduced the computational cost of finite-element-based optimization while maintaining high prediction accuracy. Data-driven methods have also been applied to hysteresis modeling in magnetic shape memory alloy actuators \cite{zhang2025hysteresis} and memory-effect modeling in soft robotic muscles \cite{kim2026nonlinear}.
+Building on these studies, surrogate models have become an effective alternative to repeated finite element analysis in engineering design optimization. They enable rapid design-space exploration while preserving satisfactory prediction accuracy \cite{liu2025review}, and have also been successfully applied to large-scale structural optimization \cite{hasirci2026machine}. More recently, physics-informed neural networks have further improved robustness and generalization by incorporating governing physical laws into the learning process \cite{wang2025neural}.
+
+\par In multimodal multi-objective optimization problems (MMOPs) \cite{deb1999multi,liang2016multimodal}, a key challenge lies in balancing conflicting objectives while maintaining both convergence accuracy and solution diversity. Owing to their strong global search capability and independence from explicit mathematical formulations of objective functions, heuristic optimization methods have been widely adopted in engineering design and optimization problems. Among them, the fast and elitist non-dominated sorting genetic algorithm-II (NSGA-II) remains one of the most influential and extensively studied multi-objective evolutionary algorithms \cite{deb2002fast}.
+To improve efficiency in computationally expensive design problems, recent studies have integrated surrogate models with multi-objective optimization, thereby reducing the number of high-fidelity evaluations \cite{rostum2025efficient}. A closely related study combined a hybrid surrogate with an improved NSGA-II for a linear oscillating actuator and validated the optimized design by FEA and prototype tests \cite{yu2026loa}. Building upon NSGA-II, other variants use specialized search mechanisms to improve convergence or Pareto-set (PS) coverage. Wei et al. \cite{wei2008greedy} introduced a greedy search strategy, Gao et al. \cite{gao2008multi} developed a parallel NSGA-II-SQP hybrid, and several studies incorporated local search to improve convergence and distribution \cite{pires2012nsga,zhang2015nsga,mandal2015memetic}. These works show that neither FEA-generated surrogate data nor an NSGA-II variant is novel by itself. The narrower question examined here is whether the SPD operator improves preservation of multiple decision-space solutions in the PMBRA design problem.
+Furthermore, Liu et al. \cite{liu2015multi} combined chaotic initialization with gradient-based local search to enhance optimization performance in oil–gas production systems, whereas Wang et al. \cite{wang2017multi} integrated a single-agent stochastic search mechanism into preference-based NSGA-II. More recently, Deng and Zhang \cite{deng2022enhanced} proposed an enhanced NSGA-II incorporating adaptive crossover and specialized crowding strategies for MMOPs. These studies collectively demonstrate that the integration of tailored search operators and hybrid optimization mechanisms can effectively strengthen the balance between exploration and exploitation, thereby improving both convergence quality and solution diversity.
+
+
+\par The specific research gap addressed here is the loss of alternative, physically distinct PMBRA designs when selection pressure is applied mainly in objective space. In a multimodal design problem, several geometries can yield similar objective values, and preserving these alternatives can provide additional choices under packaging or air-gap constraints. The present study therefore examines whether embedding the SPD operator in DN-NSGA-II improves decision-space coverage while retaining acceptable objective-space convergence. The main contributions are as follows:
+\begin{enumerate}
+	\item A four-input DNN surrogate is constructed from 4096 two-dimensional FEA samples to enable rapid numerical screening of PMBRA designs. The surrogate is used only within the sampled design domain; independent off-grid and physical validation remain necessary.
+	\item The SPD operator is integrated into DN-NSGA-II to improve the preservation of multiple Pareto-set branches in decision space. The contribution is evaluated primarily through rPSP and IGDX, while the mixed rHV and IGDF results are reported without claiming uniform objective-space superiority.
+\end{enumerate}
+\begingroup
+\setlength{\tabcolsep}{3pt}
+\renewcommand{\arraystretch}{1.12}
+\begin{table*}[!t]
+\centering
+\footnotesize
+\caption{Scope comparison with closely related surrogate-assisted actuator optimization studies. NR denotes information not verified from the cited source in the present comparison.}
+\label{tab:novelty_comparison}
+\begin{tabular}{p{1.7cm}p{1.9cm}p{3.2cm}p{2.3cm}p{3.0cm}p{4.0cm}}
+\toprule
+Study & Device & Surrogate and sampling & Optimizer & Design targets and variables & Validation and distinguishing scope \\
+\midrule
+Zhao et al. \cite{zhao2025coupled} & Reluctance actuator & Coupled structure--electromagnetic--thermal surrogate; sampling NR & NR & Coupled multiphysics design; variables NR & Physical validation NR; multiphysics reluctance-actuator optimization \\
+Yu et al. \cite{yu2026loa} & Linear oscillating actuator & Hybrid surrogate; sampling NR & Improved NSGA-II & Average performance and force fluctuation; variables NR & Static and dynamic prototype tests; physically validated actuator optimization \\
+Present study & PMBRA & DNN; $8^4=4096$ full-factorial 2D FEA cases & SPD-DN-NSGA-II & Thrust density and force-to-copper-loss index; five variables & Numerical uncertainty assessment; no prototype; SPD phase for decision-space multimodality \\
+\bottomrule
+\end{tabular}
+\end{table*}
+\endgroup
+\begin{figure}[!h]\centering
+	\includegraphics[width=7.6cm]{model_structure.eps}
+	\caption{Structure of optimized design model.}\label{model_structure}
+\end{figure}
+
+\section{DNN-Based Thrust Model}
+Parametric modeling was used to define the design variables and objectives. Two-dimensional Ansys Maxwell calculations generated thrust values over the sampled design grid, and a DNN was fitted as an interpolation surrogate for subsequent optimization. The archived files do not contain runtime records, so no quantitative speed-up claim is made.
+\subsection{PMBRA Modeling \& Dataset Generation}
+PMBRA structural design requires a balance between thrust density and force per unit copper loss. Direct FEA-based enumeration is computationally demanding, motivating the use of a surrogate within the multi-objective search. The objective definitions and their assumptions are given below.
+\par The parametric structure of the actuator is illustrated in Fig. \ref{RA_structure}. The device comprises a C-shaped stator, an I-shaped mover, permanent magnets, and coils mounted symmetrically on both sides of the stator. The permanent-magnet flux follows the external magnetic path, whereas the excitation flux closes through the internal path.
+The specific definitions of each structural parameter are detailed in Table \ref{tab:definitions}. 
+\begin{figure}[!h]\centering
+	\includegraphics[width=8cm]{RA_structure.eps}
+	\caption{Parametric structure of PMBRA.}\label{RA_structure}
+\end{figure}
+\renewcommand\arraystretch{0.9}
+\begin{table}[!t]
+	\caption{Definitions of PMBRA structural parameters.}
+	\label{tab:definitions}
+	\centering
+	\footnotesize
+	\begin{tabular}{lll}
+		\toprule
+		Symbol & Description & Unit \\
+		\midrule
+		$N_c$ & Number of coil layers & -- \\
+		$N_n$ & Number of single-layer lines & -- \\
+		$N_s$ & Number of silicon steel laminates & -- \\
+		$N$ & Number of coil turns & -- \\
+		$D$ & Conductor diameter & mm \\
+		$d_l$ & Lamination thickness & mm \\
+		$d_r$ & Fixed permanent-magnet position offset & mm \\
+		$d_e$ & Silicon steel pole width & mm \\
+		$g$ & Air gap & mm \\
+		$c_1$ & Coil ring height & mm \\
+		$c_2$ & Coil ring thickness & mm \\
+		$c_3$ & Inner coil ring width & mm \\
+		$c_4$ & Inner coil ring length & mm \\
+		$c_5$ & Outer coil ring width & mm \\
+		$c_6$ & Outer coil ring length & mm \\
+		$h_e$ & Silicon steel length & mm \\
+		$c_e$ & Silicon steel groove width & mm \\
+		$w_m$ & Moving core thickness & mm \\
+		$w_s$ & Stator core thickness & mm \\
+		$l_m$ & Moving core length & mm \\
+		$l_s$ & Stator core length & mm \\
+		\bottomrule
+	\end{tabular}
+\end{table}
+
+The lamination thickness is fixed at $d_l=0.2\,\mathrm{mm}$. Four variables, $N_c$, $N_n$, $d_e$, and $g$, are used as independent inputs to the two-dimensional FEA model and the DNN surrogate. The lamination count $N_s$ is a fifth optimization variable used to scale the active stack thickness, $w_m=d_lN_s$. The permanent-magnet position offset $d_r$ is a fixed geometric quantity in the parametric model and is not optimized. The dependent dimensions are calculated as follows:
+\begin{equation}\label{functional relationships}
+	\left\{
+	\begin{aligned}
+		&c_1=N_nD \\
+		&c_2=(N_c-1)\frac{\sqrt{3}}{2}D+D \\
+		&c_3=d_e+2\\
+		&c_4=w_s+2\\
+		&c_5=c_3+2c_2\\
+		&c_6=c_4+2c_2\\
+		&h_e=d_r+d_e+c_1+2=d_r+d_e+N_nD+2\\
+		&c_e=2c_2+4=(N_c-1)\sqrt{3}D+2D+4\\
+		&w_m=d_lN_s\\
+		&l_m=l_s+2\\
+		&l_s=2d_e+c_e\\
+		&N=\frac{N_c(2N_n-1)+\mathrm{mod}(N_c,2)}{2}\\
+	\end{aligned}
+	\right.
+\end{equation}
+The optimization seeks design variables that reduce occupied volume and copper loss while retaining thrust. The lamination thickness is fixed at $0.2\,\mathrm{mm}$ and the operating current at $5\,\mathrm{A}$. The five optimization variables are
+\begin{equation}
+	\bm{X}=[N_c, N_n, N_s, d_e, g]^{\text{T}}
+\end{equation}
+where $N_c$ is the number of coil layers, $N_n$ is the number of conductors in one coil layer, $N_s$ is the number of laminations, $d_e$ is the silicon-steel pole width, and $g$ is the air gap. The variables $N_c$, $N_n$, and $N_s$ are integer-valued, whereas $d_e$ and $g$ remain continuous. Every initialized, crossover, mutation, or SPD-generated candidate is repaired in the following deterministic order: (i) round the three integer coordinates to the nearest integer using MATLAB's 	exttt{round}; (ii) clip every coordinate to its lower and upper bounds; and (iii) evaluate the repaired vector only. The released mixed-integer implementation exposes the integer-index vector explicitly as 	exttt{[1 2 3]}.
+\par Two physical indicators are used. The thrust density is $\rho_F=F/V$ in $\mathrm{N/dm^3}$. The second indicator, $\eta_F=F/P_{\mathrm{Cu}}$ in $\mathrm{N/W}$, is a force-to-copper-loss index rather than a dimensionless energy-conversion efficiency. To formulate both objectives as minimization problems, their reciprocals are used without a percentage factor:
+\begin{equation}
+	\left\{ \begin{array}{l}
+		f_1=\frac{1}{\rho_F}=\frac{V}{F}, \\
+		f_2=\frac{1}{\eta_F}=\frac{P_{\mathrm{Cu}}}{F}.
+	\end{array} \right.
+\end{equation}
+Here, $F$ denotes actuator thrust, $V$ is the occupied volume defined in Eq. \ref{volume}, and $P_{\mathrm{Cu}}$ is the copper loss defined in Eq. \ref{power}. Thus, $f_1$ has units of $\mathrm{dm^3/N}$ and $f_2$ has units of $\mathrm{W/N}$.
+\begin{equation}
+	V=w_m\cdot l_m\cdot (2d_e+g+h_e)
+	\label{volume}
+\end{equation}
+\begin{equation}
+\begin{aligned}
+	P_{\mathrm{Cu}}&=I^2R=I^2\rho_{\mathrm{Cu}}\frac{L_w}{A_w},\\
+	L_w&=N_c(N_n-1)(c_3+c_4+c_5+c_6),\quad A_w=\pi D^2/4.
+\end{aligned}
+	\label{power}
+\end{equation}
+where $I$ is the coil current, $R$ is the winding resistance, $\rho_{\mathrm{Cu}}$ is conductor resistivity at the assumed winding temperature, $L_w$ is the modeled conductor length, $A_w=\pi D^2/4$ is conductor cross-sectional area, and $D$ is conductor diameter. Equation \ref{power} includes copper loss only; it does not include core, eddy-current, contact, end-turn correction, or power-electronic losses. Consequently, $\eta_F$ must not be interpreted as total electromechanical efficiency. The multi-objective problem is
+\begin{equation}
+	\min \bm{f}(\bm{X}) = \min\bigl(f_1(\bm{X}), f_2(\bm{X})\bigr)
+\end{equation}
+\subsection{DNN-Based Thrust Prediction Model}
+The surrogate maps the four-dimensional input vector $\mathbf{x}=[N_c,N_n,d_e,g]^{\mathrm{T}}$ to the FEA thrust $\hat{F}$. As shown in Fig. \ref{DNNs}, the network contains three fully connected hidden layers with 64, 32, and 16 neurons, followed by one scalar regression output.
+\begin{figure}[!h]\centering
+	\includegraphics[width=6cm]{DNN.eps}
+	\caption{Architecture of the four-input, one-output DNN surrogate.}\label{DNNs}
+\end{figure}
+For layer $l$, the forward mapping is
+\begin{equation}
+	\begin{aligned}
+		\mathbf{z}^{[l]} = \mathbf{W}^{[l]} \mathbf{a}^{[l-1]} + \mathbf{b}^{[l]} \\
+		\mathbf{a}^{[l]} = \sigma \left( \mathbf{z}^{[l]} \right)
+	\end{aligned}
+\end{equation}
+where $\mathbf{W}^{[l]}$, $\mathbf{b}^{[l]}$, $\mathbf{z}^{[l]}$, and $\mathbf{a}^{[l]}$ are the weight matrix, bias vector, pre-activation vector, and activation vector, respectively. ReLU is used in all hidden layers and the output layer is linear. The implementation uses TensorFlow 2.21.0 on CPU (Python 3.12.13, NumPy 2.5.2, pandas 3.0.5), disables CUDA, enables deterministic operations, and fixes Python, NumPy, and TensorFlow random states. Adam is used with learning rate $10^{-3}$, $\beta_1=0.9$, $\beta_2=0.999$, and $\epsilon=10^{-7}$ to minimize MSE for 150 epochs with batches of 32 and shuffled mini-batches; no explicit regularization or early stopping is used. Inputs are standardized using means and standard deviations fitted only on the training partition; the thrust target is not standardized.
+
+For the fixed hold-out protocol, an 80/20 split with seed 42 yields 3276 development and 820 test cases; 10\% of the development pool (328 cases) is reserved internally, leaving 2948 cases for weight updates. Repeated assessment uses shuffled five-fold cross-validation with split seed 20260826 and network seeds 7, 21, 42, 84, and 126. The exact script, split logic, seeds, environment record, and prediction tables accompany the revision package.
+
+\section{SPD-DN-NSGA-II Optimization of PMBRA}
+To address the joint optimization of thrust density and the force-to-copper-loss index, this study embeds an additional SPD search phase in DN-NSGA-II. The benchmark tests assess both decision-space diversity and objective-space convergence; they do not support a claim of uniform superiority on every metric.
+\par NSGA-II uses non-dominated sorting, crowding distance, and elitist environmental selection. DN-NSGA-II \cite{liang2016multimodal} modifies the diversity mechanism to preserve solutions in decision space. The proposed SPD-DN-NSGA-II adds the SPD operator as an optional offspring-generation phase within DN-NSGA-II. The operator is adapted from SPD-TLBO \cite{sun2025stochastic}; its effect is assessed empirically in Section 4 rather than assumed a priori.
+\subsection{DN-NSGA-II}
+When multiple distinct decision vectors map to the same or similar objective vectors, the problem is multimodal multi-objective \cite{deb1999multi,liang2016multimodal}. Standard objective-space selection can discard alternative decision-space solutions; DN-NSGA-II modifies selection to improve their preservation.
+\par The core of DN-NSGA-II is to break away from the traditional algorithm's dependence on the objective space. For a problem with $n$-dimensional decision variables and $m$ optimization objectives:
+\begin{equation}
+	\min \bm{f}(\mathbf{X}) = (f_1(\mathbf{X}), f_2(\mathbf{X}), \ldots, f_m(\mathbf{X}))
+\end{equation}
+where $\bm{X}=(x_1, x_2, \dots, x_n) \in \mathbb{R}^n$ is the decision vector and $\bm{f}(\bm{X}) \in \mathbb{R}^m$ is the objective vector; the scalar $F$ is reserved for actuator thrust.
+\par In an MMOP, two individuals with similar objective vectors $\bm{f}(\mathbf{x}_i)$ and $\bm{f}(\mathbf{x}_j)$ can still represent distinct solutions when their decision vectors are far apart. DN-NSGA-II therefore uses Euclidean distance in decision space:
+\begin{equation}
+	d(\mathbf{X}_i, \mathbf{X}_j) = \|\mathbf{X}_i - \mathbf{X}_j\|_2 = \sqrt{\sum_{k=1}^{n} (x_{i,k} - x_{j,k})^2}
+\end{equation}
+Through this design, the focus of algorithm evolution shifts from simply pursuing the optimal result to the dual goals of achieving excellent results and offering diverse solutions.
+\par To prevent the premature disappearance of local solutions due to global selection, DN-NSGA-II introduces a niching-based selection mechanism in the mating pool construction stage. Instead of directly implementing a random tournament selection, the algorithm introduces a crowding factor ($CF$) and employs differentiated execution rules. After randomly selecting an individual $\mathbf{X}_i$, the algorithm extracts $CF$ candidate individuals from the population to form a set $C$. Then, it identifies the individual $\mathbf{X}_j$ closest to $\mathbf{X}_i$ in the decision space within $C$, allowing them to compete solely based on Pareto rank. The winner enters the mating pool. This mechanism limits competition to solutions with proximity in the decision space, reducing destructive competition between different PSs and ensuring solution diversity.
+\par In the environmental selection phase, DN-NSGA-II completely reconstructs the evaluation criterion for crowding distance. When individuals in the non-dominated hierarchy (Front) need to compete for a limited number of survival spots, the algorithm no longer refers to the target space but instead calculates the crowding degree in the decision space. The crowding degree $CD_i$ of individual $\mathbf{X}_i$ in the decision space is calculated as follows: 
+\begin{equation}
+	CD_i = \sum_{j \in \mathcal{N}_i} \|\mathbf{X}_i - \mathbf{X}_j\|_2
+\end{equation}
+where $\mathcal{N}_i$ is the set of individuals adjacent to $\mathbf{X}_i$ in the same non-dominated hierarchy. This logic provides a significant selection advantage for individuals in sparse regions of decision variables. Even if several solutions overlap in the target space, as long as they are uniformly distributed in the decision space, they can be simultaneously preserved by the algorithm.
+\subsection{Mechanism of the SPD Operator}
+The SPD operator is derived from the SPD-TLBO algorithm. It leverages the differential information between elite individuals and the current population to guide the search direction, while achieving dynamic equilibrium between exploration and exploitation via a random scaling factor. In SPD-DN-NSGA-II algorithm, the SPD operator is embedded into the DN-NSGA-II framework, and its search direction is composed of two components $\bm{EK}_1$ and $\bm{EK}_2$.
+\par The algorithm leverages a jumping rate ($JR$) to determine whether to activate the SPD operator. Specifically, this jumping rate is configured to vary dynamically with the number of iterations, as detailed below. 
+\begin{equation}
+	JR=\cos^4 (\frac{\pi}{2}\cdot \frac{G}{G_{\text{max}}})
+\end{equation}
+\iffalse
+where $G$ denotes the current number of iterations, and $G_{\text{max}}$ represents the preset maximum number of iterations. This mechanism enables the SPD operator to be triggered at a high frequency in the early evolutionary stage, thereby enhancing the global search capability; in the later stage, the triggering probability is gradually reduced to avoid disrupting the already converged PF.
+\fi
+where $G$ denotes the current generation and $G_{\text{max}}$ is the maximum number of generations. The SPD branch is therefore triggered frequently early in evolution, and its activation probability decreases later to reduce disruption of the approximated Pareto front.
+\par The specific generation mechanism of SPD offspring individuals is elaborated as follows:
+\begin{equation}
+	\bm{x}'_i=\bm{x}_i+r_g\bm{EK}_1+(1-r_g)(\bm{EK}_1-\bm{EK}_2)
+\end{equation}
+where $\bm{x}_i$ is the current individual, $\bm{x}'_i$ is its SPD offspring, and $r_g$ is the generation-dependent scalar defined below. The vectors $\bm{EK}_1$ and $\bm{EK}_2$ are differences between two independently sampled Rank-1 leaders and two randomly selected population members.
+\begin{equation}
+	\begin{aligned}
+		\bm{EK}_1=\bm{P}_1-\bm{X}_{r1} \\
+		\bm{EK}_2=\bm{P}_2-\bm{X}_{r2}
+	\end{aligned}
+\end{equation}
+where $\bm{P}_1$ and $\bm{P}_2$ are leader vectors selected from the Rank-1 front, and $\bm{X}_{r1}$ and $\bm{X}_{r2}$ are randomly selected population vectors. The subscripts $r1$ and $r2$ identify random individuals and are distinct from the random scalar $r\sim U(0,1)$:
+\begin{equation}
+	r_g=r\cos^{512}\!\left(\frac{\pi}{2}\frac{G}{G_{\max}}\right),\qquad r\sim U(0,1).
+\end{equation}
+The exponent 512 is transferred from the coefficient-sensitivity study reported for the published SPD-TLBO method \cite{sun2025stochastic}. Because the present operator inherits the same cosine-decay mechanism, this previously screened value is used as a fixed transfer setting rather than re-tuned on the CEC2019 suite. The large exponent produces a rapid decay of $r_g$. This citation-based choice avoids tuning on the test suite, but it is not evidence that 512 is universally optimal for SPD-DN-NSGA-II; an algorithm-specific ablation remains future work.
+\par Embedding the decaying SPD operator in DN-NSGA-II improved decision-space diversity on most investigated benchmark problems, whereas objective-space convergence remained problem dependent.
+\subsection{Overall Framework of SPD-DN-NSGA-II}
+\par At every generation, DN-based tournament selection, simulated-binary crossover, and polynomial mutation generate the GA offspring. Independently, the SPD branch is activated with probability $JR$ and generates an additional SPD offspring set. Thus, SPD offspring supplement rather than replace the GA offspring. Before every objective evaluation, $N_c$, $N_n$, and $N_s$ are rounded and the complete vector is then clipped to its bounds. The parent, repaired GA-offspring, and (when activated) repaired SPD-offspring populations are merged, ranked, and truncated to population size $N$ by DN-based environmental selection. This sequence is used consistently in Algorithm \ref{alg:spd_dn_nsgaii}; the flowchart should be interpreted as an optional additional SPD branch, not as an exclusive choice between GA and SPD.
+\begin{figure}[!h]\centering
+	\includegraphics[width=8cm]{flowchart.eps}
+	\caption{Flowchart of SPD-DN-NSGA-II.}\label{flowchart}
+\end{figure}
+\begin{algorithm}[!t]
+	\caption{SPD-DN-NSGA-II}
+	\label{alg:spd_dn_nsgaii}
+	\begin{algorithmic}[1]
+		
+		\Require $f(\mathbf{x})$, bounds $[\mathbf{x}_l,\mathbf{x}_u]$,
+		integer index set $\mathcal I$, population size $N$, max generations $G_{\max}$
+		
+		\Ensure $PS$ and $PF$
+		
+		\State Initialize population $P$ randomly
+		\State $P_{\mathcal I}\gets\operatorname{round}(P_{\mathcal I})$; $P\gets\min(\max(P,\mathbf{x}_l),\mathbf{x}_u)$; evaluate $P$
+		
+		\State Assign Rank and crowding-distances using DN-based non-dominated sorting
+		
+		\For{$gen=1$ to $G_{\max}$}
+		
+		\State $JR=\cos^4\!\left(\frac{\pi}{2}\frac{gen}{G_{\max}}\right)$
+		
+		\State Select two elite leaders $\mathbf{P}_1,\mathbf{P}_2$
+		from Rank-1 front
+		
+		\State Generate GA offspring via DN-based tournament
+		selection, SBX crossover, and polynomial mutation
+		\State Round integer coordinates, then clip GA offspring to bounds and evaluate
+		
+		\If{$rand<JR$}
+		\State Generate SPD offspring
+		\State Round integer coordinates, then clip SPD offspring to bounds and evaluate
+		\EndIf
+		
+		\State Merge parent, GA offspring, and SPD offspring populations
+		
+		\State Recalculate Rank and crowding-distances
+		
+		\State Select next population using Rank and crowding-distances
+		
+		\EndFor
+		
+		\State $PS \gets$ decision variables of final population
+		
+		\State $PF \gets$ objective values of final population
+		
+	\end{algorithmic}
+\end{algorithm}
+
+\section{Numerical Studies and Results}
+\subsection{FEA Simulation and Dataset Construction}
+The dataset was generated with a two-dimensional ANSYS Maxwell Cartesian model. Four independent FEA inputs were varied: $N_c$, $N_n$, $d_e$, and $g$. Each input has eight levels (Table \ref{tab:parameters_range}), and the full-factorial design therefore contains $8^4=4096$ cases. The lamination count $N_s$ was not an FEA input; it defines the active stack depth $w_m=d_lN_s$. Maxwell 2D scales integral quantities in an XY model by the specified model depth \cite{ansysModelSettings,ansysModelDepth}. Consistently, two-dimensional linear-reluctance-actuator force formulations include the active axial length as a multiplicative factor and have been checked against prototypes \cite{garcia2018linear}. The present model therefore uses
+\begin{equation}
+ F(N_s)=F_{1\,\mathrm{m}}\frac{d_lN_s}{1\,\mathrm{m}},
+ \label{eq:model_depth_scaling}
+\end{equation}
+where $F_{1\,\mathrm{m}}$ is the force reported for a 1-m model depth. This is the standard uniform-extrusion approximation, not a general 2D-to-3D equivalence. It neglects finite-stack end effects, leakage flux, coil-end fields, fringing, and thickness-dependent saturation; no 3D comparison cases are claimed. The optimization is therefore conditional on Eq. \ref{eq:model_depth_scaling}. A subset of the FEA dataset is shown in Table \ref{tab: dataset}.
+\renewcommand\arraystretch{1}
+\begin{table}[!t]
+	\scriptsize
+	\centering
+	\caption{Specific values of the design parameters.}
+	\label{tab:parameters_range}
+	\begin{tabular}{lll}
+		\toprule
+		Parameter & Range & Linear interpolation \\
+		\midrule
+		
+		$N_c$ &
+		$[14,28]$ &
+		14, 16, 18, 20, 22, 24, 26, 28 \\
+		
+		$N_n$ &
+		$[14,21]$ &
+		14, 15, 16, 17, 18, 19, 20, 21 \\
+		
+		$g$ (mm) &
+		$[0.3,1.0]$ &
+		0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0 \\
+		
+		$d_e$ (mm) &
+		$[11,39]$ &
+		11, 15, 19, 23, 27, 31, 35, 39 \\
+		
+		\bottomrule
+	\end{tabular}
+\end{table}
+\renewcommand\arraystretch{1}
+\begin{table}[htbp]
+	\scriptsize
+	\centering
+	\caption{Representative rows from the 4096-case FEA dataset.}\label{tab: dataset}
+	\begin{tabular}{cccccc} 
+		\toprule 
+		Number & $d_e$ & $g$ & $N_n$ & $N_c$ &$F (\mathrm{kN})$\\
+		\midrule % 中间细线
+		1    & 11  & 0.3  & 14 &14 &3.06E+01\\
+		2    & 11  & 0.3  & 14 &16 &3.15E+01\\
+		3    & 11  & 0.3  & 14 &18 &3.22E+01\\
+		4    & 11  & 0.3  & 14 &20 &3.28E+01\\
+		5    & 11  & 0.3  & 14 &22 &3.34E+01\\
+		6    & 11  & 0.3  & 14 &24 &3.39E+01\\
+		7    & 11  & 0.3  & 14 &26 &3.43E+01\\
+		8    & 11  & 0.3  & 14 &28 &3.47E+01\\
+		\vdots & \vdots & \vdots & \vdots & \vdots &\vdots \\ 
+		4094   & 39  & 1.0  & 21 &24 &1.08E+02\\
+		4095   & 39  & 1.0  & 21 &26 &1.11E+02\\
+		4096  & 39  & 1.0  & 21 &28 &1.13E+02\\
+		\bottomrule % 底部粗线
+	\end{tabular}
+\end{table}
+\subsection{Performance of DNN Thrust Prediction}
+The original parameter-slice visualization is retained in Fig. \ref{Fig:ge02}. It compares the DNN predictions with the FEA reference values while varying $d_e$, $N_c$, and $N_n$ along selected grid-aligned slices.
+\begin{figure}[htbp]
+	\centering
+	\subfloat[Comparison of predicted and FEA thrust versus $d_e$.]{\label{de}
+		\includegraphics[width=8cm]{comparison_of_predicted_and_true_force_trend_on_de.eps}}\\
+	\subfloat[Comparison of predicted and FEA thrust versus $N_c$.]{\label{Nc}
+		\includegraphics[width=8cm]{comparison_of_predicted_and_true_force_trend_on_Nc.eps}}\\
+	\subfloat[Comparison of predicted and FEA thrust versus $N_n$.]{\label{Nn}
+		\includegraphics[width=8cm]{comparison_of_predicted_and_true_force_trend_on_Nn.eps}}\\
+	\caption{DNN predictions and FEA reference values along selected parameter slices of the sampled grid.}
+	\label{Fig:ge02}
+\end{figure}
+\par Figure \ref{Fig:ge02} shows close agreement between the DNN predictions and FEA values on the selected slices. This visual agreement is retained as the original trend-based evidence and is supplemented below by physical-unit errors, repeated cross-validation, intermediate-grid validation, and comparisons with simpler surrogate models.
+
+The numerical target stored by Maxwell is force per unit model depth in $\mathrm{kN/m}$. Device-level force error in newtons is therefore obtained by multiplying an error in $\mathrm{kN/m}$ by the stack depth in millimetres. Table \ref{tab:dnn_metrics_n} reports the resulting range for $N_s=188$--300 ($w_m=37.6$--60.0 mm). The fixed hold-out gives MAE $=0.28385\,\mathrm{kN/m}$ and RMSE $=0.35862\,\mathrm{kN/m}$; the five-fold means are 0.26710 and $0.35098\,\mathrm{kN/m}$, respectively. A separately assembled 168-point intermediate grid (56 points varied along each of $d_e$, $N_c$, and $N_n$) gives MAE $=0.10506\,\mathrm{kN/m}$ and RMSE $=0.15277\,\mathrm{kN/m}$.
+\begin{table}[htbp]
+\centering
+\small
+\caption{DNN force-error metrics in device-level newtons over the admissible stack-depth range.}
+\label{tab:dnn_metrics_n}
+\begin{tabular}{lcc}
+\toprule
+Validation source & MAE (N) & RMSE (N)\\
+\midrule
+Fixed 80/20 hold-out & 10.67--17.03 & 13.48--21.52\\
+Five-fold cross-validation & 10.04--16.03 & 13.20--21.06\\
+168-point intermediate grid & 3.95--6.30 & 5.74--9.17\\
+\bottomrule
+\end{tabular}
+\end{table}
+\begin{table*}[htbp]
+\centering
+\small
+\caption{Comparison of the DNN with five pre-specified low-complexity surrogate baselines. Errors are reported in $\mathrm{kN/m}$; lower MAE and RMSE are better. Cross-validation entries are mean $\pm$ standard deviation over the same five folds.}
+\label{tab:surrogate_comparison}
+\begin{tabular}{lcccc}
+\toprule
+Model & CV MAE & CV RMSE & 168-point MAE & 168-point RMSE \\
+\midrule
+\textbf{DNN / DNN ensemble} & $\mathbf{0.2671\pm0.0590}$ & $\mathbf{0.3510\pm0.0884}$ & $\mathbf{0.1051}$ & $\mathbf{0.1528}$ \\
+Linear regression & $3.1060\pm0.0382$ & $4.3555\pm0.0886$ & $5.1558$ & $7.2331$ \\
+Ridge regression & $3.1066\pm0.0382$ & $4.3555\pm0.0883$ & $5.1498$ & $7.2290$ \\
+Quadratic polynomial & $0.9077\pm0.0268$ & $1.2927\pm0.0605$ & $1.7030$ & $2.4647$ \\
+Shallow decision tree & $3.0850\pm0.0515$ & $4.1458\pm0.0866$ & $1.7046$ & $2.4602$ \\
+$k$-nearest-neighbor regression & $1.5428\pm0.3716$ & $2.0179\pm0.4655$ & $1.5875$ & $1.8191$ \\
+\bottomrule
+\end{tabular}
+\end{table*}
+\par The five comparison models and their hyperparameters were fixed before the results were examined, and all models use the same five shuffled folds and the same 168 intermediate-grid FEA points as the DNN. As shown in Table \ref{tab:surrogate_comparison}, the DNN ranks first in both MAE and RMSE under both protocols. Its five-fold RMSE is 72.8\% lower than the next-best quadratic polynomial model, and its 168-point RMSE is 91.6\% lower than the next-best $k$-nearest-neighbor model. The conclusion is limited to these five pre-specified low-complexity baselines and does not imply superiority over every possible surrogate family or tuning strategy.
+\begin{figure*}[htbp]
+	\centering
+	\includegraphics[width=0.90\textwidth]{dnn_validation_physical_units_additive.pdf}
+	\caption{DNN validation in physical units at the maximum investigated stack depth of 60 mm: (a) cross-validated predicted versus FEA thrust and (b) absolute errors on the 168-point intermediate grid, grouped by varied input. The dashed line in (a) denotes equality.}
+	\label{Fig:dnn_physical_validation}
+\end{figure*}
+\par Figure \ref{Fig:dnn_physical_validation} quantifies interpolation uncertainty inside the sampled domain. The intermediate grid is independent of the 4096-node factorial coordinates but reuses the available FEA trend records; it is not a new 3D or prototype experiment.
+\subsection{Performance Evaluation of SPD-DN-NSGA-II}
+SPD-DN-NSGA-II is compared with NSGA-II \cite{deb2002fast} and DN-NSGA-II \cite{liang2016multimodal} to isolate the effect of the SPD operator. Four lower-is-better metrics are used: reciprocal Pareto-set proximity (rPSP) \cite{yue2019novel} and IGDX \cite{zhou2009approximating} in decision space, and reciprocal hypervolume (rHV) \cite{zitzler2003performance} and IGDF \cite{zhou2009approximating} in objective space.
+
+\par All algorithms were evaluated on the 22 CEC2019 problems. Following the technical report \cite{liang2019problem}, population size was $100N_{\mathrm{var}}$ and the maximum number of objective evaluations was $5000N_{\mathrm{var}}$, where $N_{\mathrm{var}}$ is the number of decision variables. Tables \ref{tab: rHV}, \ref{tab: rPSP}, \ref{tab: IGDX}, and \ref{tab: IGDF} report means and standard deviations from 31 archived runs. Statistical analysis uses the unrounded run-level files. For each problem and comparator, a two-sided Mann--Whitney $U$ test is Holm-corrected over eligible problems within each metric; Vargha--Delaney $A_{12}=P(X_{\mathrm{SPD}}<X_{\mathrm{control}})+0.5P(=)$ records effect direction because all four metrics are minimized. Suite-level analysis first reduces each problem to its median, then applies a Friedman test across the three algorithms and two-sided Wilcoxon signed-rank post-hoc tests with Holm correction. The rHV implementation is two-objective, so MMF14, MMF15, MMF14\_a, and MMF15\_a are reported as unresolved and excluded from rHV inference ($n=18$); infinite rPSP values are retained as worst observations.
+
+\renewcommand\arraystretch{0.9}
+\begin{table*}[htbp]
+	\scriptsize
+	\centering
+	\caption{$\text{rPSP} (\text{mean} \pm \text{std})$}\label{tab: rPSP}
+	\begin{tabular}{cccc}
+		\toprule
+		CEC2019 & NSGA-II & DN-NSGA-II & SPD-DN-NSGA-II \\
+		\midrule
+		MMF1 & $1.15\text{E}-01 \pm 2.05\text{E}-02$ & $8.65\text{E}-02 \pm 1.19\text{E}-02$ & $\mathbf{5.46\text{E}-02} \pm 2.10\text{E}-02$\\
+		MMF2 & $1.05\text{E}-01 \pm 6.06\text{E}-02$ & $8.92\text{E}-02 \pm 6.89\text{E}-02$ & $\mathbf{5.83\text{E}-02} \pm 4.14\text{E}-02$\\
+		MMF3 & $9.38\text{E}-02 \pm 4.60\text{E}-02$ & $9.90\text{E}-02 \pm 4.33\text{E}-02$ & $\mathbf{3.46\text{E}-02} \pm 1.36\text{E}-02$\\
+		MMF4 & $1.50\text{E}-01 \pm 2.87\text{E}-02$ & $9.57\text{E}-02 \pm 3.21\text{E}-02$ & $\mathbf{4.58\text{E}-02} \pm 8.75\text{E}-03$\\
+		MMF5 & $1.96\text{E}-01 \pm 2.73\text{E}-02$ & $1.60\text{E}-01 \pm 1.70\text{E}-02$ & $\mathbf{1.05\text{E}-01} \pm 9.17\text{E}-03$\\
+		MMF6 & $1.72\text{E}-01 \pm 1.58\text{E}-02$ & $1.38\text{E}-01 \pm 1.55\text{E}-02$ & $\mathbf{8.97\text{E}-02} \pm 6.90\text{E}-03$\\
+		MMF7 & $7.63\text{E}-02 \pm 1.27\text{E}-02$ & $4.64\text{E}-02 \pm 1.41\text{E}-02$ & $\mathbf{2.83\text{E}-02} \pm 7.12\text{E}-03$\\ % 假设为 2.83E-02
+		MMF8 & $2.20\text{E}+00 \pm 1.77\text{E}+00$ & $2.71\text{E}-01 \pm 9.06\text{E}-02$ & $\mathbf{1.36\text{E}-01} \pm 5.25\text{E}-02$\\
+		MMF9 & $2.58\text{E}-01 \pm 7.11\text{E}-01$ & $2.24\text{E}-01 \pm 7.85\text{E}-03$ & $\mathbf{8.26\text{E}-03} \pm 1.30\text{E}-03$\\
+		MMF10 & $4.45\text{E}+00 \pm 5.05\text{E}-01$ & $\mathbf{3.43\text{E}+00} \pm 3.41\text{E}+00$ & $4.99\text{E}+00 \pm 1.42\text{E}+00$\\
+		MMF11 & $2.96\text{E}+00 \pm 1.26\text{E}+00$ & $1.67\text{E}+00 \pm 1.54\text{E}-01$ & $\mathbf{1.40\text{E}+00} \pm 2.40\text{E}-01$\\
+		MMF12 & $\text{Inf} \pm \text{NaN}$ & $2.21\text{E}+00 \pm 1.63\text{E}-03$ & $\mathbf{1.81\text{E}+00} \pm 3.15\text{E}-02$\\
+		MMF13 & $7.74\text{E}-01 \pm 1.45\text{E}-01$ & $6.00\text{E}-01 \pm 2.17\text{E}-02$ & $\mathbf{5.27\text{E}-01} \pm 5.37\text{E}-02$\\
+		MMF14 & $1.14\text{E}-01 \pm 1.38\text{E}-02$ & $1.04\text{E}-01 \pm 9.12\text{E}-03$ & $\mathbf{7.23\text{E}-02} \pm 5.15\text{E}-03$\\
+		MMF15 & $4.47\text{E}-01 \pm 2.07\text{E}-01$ & $\mathbf{3.44\text{E}-01} \pm 1.50\text{E}-01$ & $5.17\text{E}-01 \pm 4.82\text{E}-02$\\
+		MMF1\_z & $1.61\text{E}-01 \pm 2.77\text{E}-02$ & $7.27\text{E}-02 \pm 1.33\text{E}-02$ & $\mathbf{4.10\text{E}-02} \pm 7.09\text{E}-03$\\
+		MMF1\_e & $2.95\text{E}+00 \pm 2.92\text{E}+00$ & $1.95\text{E}+00 \pm 1.88\text{E}+00$ & $\mathbf{1.90\text{E}+00} \pm 1.03\text{E}+00$\\
+		MMF1\_a & $1.52\text{E}-01 \pm 1.52\text{E}-02$ & $1.29\text{E}-01 \pm 1.29\text{E}-01$ & $\mathbf{9.73\text{E}-02} \pm 7.46\text{E}-03$\\
+		MMF14\_a & $2.91\text{E}-01 \pm 2.12\text{E}-02$ & $\mathbf{2.29\text{E}-01} \pm 3.07\text{E}-02$ & $2.47\text{E}-01 \pm 4.26\text{E}-02$\\
+		SYM\_PART\_simple & $2.46\text{E}+02 \pm 1.57\text{E}+02$ & $4.87\text{E}+00 \pm 2.42\text{E}+00$ & $\mathbf{1.23\text{E}-01} \pm 1.79\text{E}+00$\\
+		SYM\_PART\_rotated & $2.43\text{E}+01 \pm 1.48\text{E}+02$ & $6.96\text{E}+00 \pm 6.50\text{E}+00$ & $\mathbf{5.05\text{E}-01} \pm 5.01\text{E}-01$\\
+		Omni\_test & $3.90\text{E}+00 \pm 3.58\text{E}+00$ & $1.58\text{E}+00 \pm 3.80\text{E}-01$ & $\mathbf{1.65\text{E}-01} \pm 7.37\text{E}-02$\\
+		\bottomrule
+	\end{tabular}
+	\begin{tablenotes}
+		\item[*] The value in bold means the best result.
+	\end{tablenotes}
+\end{table*}
+\renewcommand\arraystretch{0.9}
+\begin{table*}[htbp]
+	\scriptsize
+	\centering
+	\caption{$\text{rHV} (\text{mean} \pm \text{std})$}\label{tab: rHV}
+	\begin{tabular}{cccc}
+		\toprule
+		CEC2019 & NSGA-II & DN-NSGA-II & SPD-DN-NSGA-II \\
+		\midrule
+		MMF1 & $1.15\text{E}+00 \pm 7.53\text{E}-04$ & $1.15\text{E}+00 \pm 9.56\text{E}-04$ & $\mathbf{1.14\text{E}+00} \pm 3.57\text{E}-02$\\
+		MMF2 & $\mathbf{1.15\text{E}+00} \pm 8.32\text{E}-03$ & $1.16\text{E}+00 \pm 1.53\text{E}-02$ & $1.16\text{E}+00 \pm 1.07\text{E}-02$\\
+		MMF3 & $\mathbf{1.15\text{E}+00} \pm 1.36\text{E}-02$ & $1.17\text{E}+00 \pm 2.05\text{E}-02$ & $1.16\text{E}+00 \pm 6.83\text{E}-03$\\
+		MMF4 & $\mathbf{1.85\text{E}+00} \pm 4.34\text{E}-04$ & $1.86\text{E}+00 \pm 1.24\text{E}-03$ & $1.86\text{E}+00 \pm 2.20\text{E}-03$\\
+		MMF5 & $1.15\text{E}+00 \pm 5.28\text{E}-04$ & $1.15\text{E}+00 \pm 8.99\text{E}-04$ & $\mathbf{1.14\text{E}+00} \pm 5.47\text{E}-02$\\
+		MMF6 & $\mathbf{1.15\text{E}+00} \pm 5.62\text{E}-04$ & $1.15\text{E}+00 \pm 1.62\text{E}-03$ & $1.15\text{E}+00 \pm 8.84\text{E}-03$\\
+		MMF7 & $\mathbf{1.15\text{E}+00} \pm 3.87\text{E}-04$ & $1.15\text{E}+00 \pm 9.36\text{E}-04$ & $1.15\text{E}+00 \pm 1.01\text{E}-02$\\
+		MMF8 & $\mathbf{2.37\text{E}+00} \pm 7.26\text{E}-04$ & $2.38\text{E}+00 \pm 2.60\text{E}-03$ & $2.39\text{E}+00 \pm 3.93\text{E}-02$\\
+		MMF9 & $1.12\text{E}-01 \pm 1.12\text{E}-05$ & $1.03\text{E}-01 \pm 3.64\text{E}-05$ & $\mathbf{1.03\text{E}-01} \pm 1.59\text{E}-03$\\
+		MMF10 & $8.07\text{E}-02 \pm 3.17\text{E}-03$ & $8.03\text{E}-02 \pm 3.00\text{E}-03$ & $\mathbf{7.74\text{E}-02} \pm 2.54\text{E}-03$\\
+		MMF11 & $6.89\text{E}-02 \pm 5.58\text{E}-06$ & $6.89\text{E}-02 \pm 1.29\text{E}-05$ & $\mathbf{6.72\text{E}-02} \pm 3.54\text{E}-03$\\
+		MMF12 & $6.41\text{E}-01 \pm 3.22\text{E}-02$ & $6.36\text{E}-01 \pm 1.63\text{E}-03$ & $\mathbf{6.27\text{E}-01} \pm 3.57\text{E}-02$\\
+		MMF13 & $5.42\text{E}-02 \pm 2.68\text{E}-06$ & $5.43\text{E}-02 \pm 1.34\text{E}-05$ & $\mathbf{5.40\text{E}-02} \pm 1.03\text{E}-02$\\
+		MMF14 & $3.53\text{E}-01 \pm 4.34\text{E}-03$ & $3.30\text{E}-01 \pm 8.76\text{E}-03$ & $\mathbf{3.24\text{E}-01} \pm 1.00\text{E}-02$\\
+		MMF15 & $2.37\text{E}-01 \pm 8.28\text{E}-03$ & $2.33\text{E}-01 \pm 9.22\text{E}-03$ & $\mathbf{2.24\text{E}-01} \pm 4.45\text{E}-03$\\
+		MMF1\_z & $\mathbf{1.15\text{E}+00} \pm 9.21\text{E}-04$ & $1.15\text{E}+00 \pm 1.92\text{E}-03$ & $1.15\text{E}+00 \pm 5.15\text{E}-03$\\
+		MMF1\_e & $1.59\text{E}-02 \pm 1.59\text{E}-02$ & $1.21\text{E}+00 \pm 8.78\text{E}-02$ & $\mathbf{1.14\text{E}+00} \pm 3.20\text{E}-01$\\
+		MMF14\_a & $3.48\text{E}-01 \pm 6.69\text{E}-03$ & $3.17\text{E}-01 \pm 1.25\text{E}-02$ & $\mathbf{3.15\text{E}-01} \pm 1.04\text{E}-02$\\
+		MMF15\_a & $2.34\text{E}-01 \pm 5.12\text{E}-03$ & $2.28\text{E}-01 \pm 1.44\text{E}-02$ & $\mathbf{2.20\text{E}-01} \pm 6.77\text{E}-03$\\
+		SYM\_PART\_simple & $\mathbf{6.00\text{E}-02} \pm 8.17\text{E}-06$ & $6.01\text{E}-02 \pm 1.31\text{E}-05$ & $6.02\text{E}-02 \pm 2.88\text{E}-04$\\
+		SYM\_PART\_rotated & $\mathbf{6.01\text{E}-02} \pm 9.65\text{E}-06$ & $6.01\text{E}-02 \pm 1.35\text{E}-05$ & $6.02\text{E}-02 \pm 1.78\text{E}-04$\\
+		Omni\_test & $\mathbf{1.89\text{E}-02} \pm 2.10\text{E}-07$ & $1.89\text{E}-02 \pm 6.02\text{E}-07$ & $1.89\text{E}-02 \pm 5.80\text{E}-07$\\
+		\bottomrule
+	\end{tabular}
+	\begin{tablenotes}
+		\item[*] The value in bold means the best result.
+	\end{tablenotes}
+\end{table*}
+\renewcommand\arraystretch{0.9}
+\begin{table*}[htbp]
+	\scriptsize
+	\centering
+	\caption{$\text{IGDX} (\text{mean} \pm \text{std})$}\label{tab: IGDX}
+	\begin{tabular}{cccc}
+		\toprule
+		CEC2019 & NSGA-II & DN-NSGA-II & SPD-DN-NSGA-II \\
+		\midrule
+		MMF1 & $1.13\text{E}-01 \pm 1.95\text{E}-02$ & $8.53\text{E}-02 \pm 1.11\text{E}-02$ & $\mathbf{5.45\text{E}-02} \pm 2.11\text{E}-02$\\
+		MMF2 & $9.28\text{E}-02 \pm 4.55\text{E}-02$ & $7.83\text{E}-02 \pm 4.24\text{E}-02$ & $\mathbf{5.83\text{E}-02} \pm 4.14\text{E}-02$\\
+		MMF3 & $8.24\text{E}-02 \pm 3.48\text{E}-02$ & $8.72\text{E}-02 \pm 3.30\text{E}-02$ & $\mathbf{3.46\text{E}-02} \pm 1.36\text{E}-02$\\
+		MMF4 & $1.46\text{E}-01 \pm 2.69\text{E}-02$ & $9.56\text{E}-02 \pm 3.21\text{E}-02$ & $\mathbf{4.58\text{E}-02} \pm 8.75\text{E}-03$\\
+		MMF5 & $1.91\text{E}-01 \pm 2.45\text{E}-02$ & $1.58\text{E}-01 \pm 1.54\text{E}-02$ & $\mathbf{1.04\text{E}-01} \pm 9.20\text{E}-03$\\
+		MMF6 & $1.69\text{E}-01 \pm 1.49\text{E}-02$ & $1.36\text{E}-01 \pm 1.53\text{E}-02$ & $\mathbf{8.96\text{E}-02} \pm 6.87\text{E}-03$\\
+		MMF7 & $7.35\text{E}-02 \pm 1.10\text{E}-02$ & $4.57\text{E}-02 \pm 1.31\text{E}-02$ & $\mathbf{2.83\text{E}-02} \pm 7.13\text{E}-03$\\
+		MMF8 & $1.34\text{E}+00 \pm 4.54\text{E}-01$ & $2.64\text{E}-01 \pm 8.58\text{E}-02$ & $\mathbf{1.34\text{E}-01} \pm 5.13\text{E}-02$\\
+		MMF9 & $8.91\text{E}-02 \pm 6.77\text{E}-02$ & $2.24\text{E}-02 \pm 7.85\text{E}-03$ & $\mathbf{8.26\text{E}-03} \pm 1.30\text{E}-03$\\
+		MMF10 & $1.88\text{E}-01 \pm 2.76\text{E}-02$ & $\mathbf{1.82\text{E}-01} \pm 2.58\text{E}-02$ & $1.97\text{E}-01 \pm 1.41\text{E}-02$\\
+		MMF11 & $2.51\text{E}+00 \pm 4.21\text{E}-04$ & $2.50\text{E}-01 \pm 3.30\text{E}-04$ & ${2.48\text{E}-01} \pm 3.45\text{E}-04$\\
+		MMF12 & $2.46\text{E}-01 \pm 9.33\text{E}-03$ & $2.47\text{E}-01 \pm 4.12\text{E}-04$ & ${2.45\text{E}-01} \pm 1.64\text{E}-03$\\
+		MMF13 & $3.09\text{E}-01 \pm 1.38\text{E}-02$ & $2.85\text{E}-01 \pm 9.94\text{E}-03$ & $\mathbf{2.57\text{E}-01} \pm 1.04\text{E}-02$\\
+		MMF14 & $1.14\text{E}-01 \pm 1.38\text{E}-02$ & $1.04\text{E}-01 \pm 9.12\text{E}-03$ & $\mathbf{7.23\text{E}-02} \pm 5.15\text{E}-03$\\
+		MMF15 & $2.61\text{E}-01 \pm 2.25\text{E}-02$ & $\mathbf{2.46\text{E}-01} \pm 2.65\text{E}-02$ & $2.66\text{E}-01 \pm 4.13\text{E}-02$\\
+		MMF1\_z & $1.61\text{E}-01 \pm 2.70\text{E}-02$ & $7.17\text{E}-02 \pm 1.31\text{E}-02$ & $\mathbf{4.09\text{E}-02} \pm 7.06\text{E}-03$\\
+		MMF1\_e & $1.53\text{E}+00 \pm 6.89\text{E}-01$ & $\mathbf{1.15\text{E}+00} \pm 5.46\text{E}-01$ & $1.21\text{E}+00 \pm 4.81\text{E}-01$\\
+		MMF14\_a & $1.52\text{E}-01 \pm 1.45\text{E}-02$ & $1.29\text{E}-01 \pm 1.50\text{E}-02$ & $\mathbf{9.73\text{E}-02} \pm 7.46\text{E}-03$\\
+		MMF15\_a & $2.38\text{E}-01 \pm 9.35\text{E}-03$ & $2.16\text{E}-01 \pm 1.56\text{E}-02$ & $\mathbf{2.13\text{E}-01} \pm 2.25\text{E}-02$\\
+		SYM\_PART\_simple & $1.03\text{E}+01 \pm 1.94\text{E}+00$ & $4.46\text{E}+00 \pm 1.63\text{E}+00$ & $\mathbf{1.23\text{E}-01} \pm 1.79\text{E}+00$\\
+		SYM\_PART\_rotated & $8.10\text{E}+00 \pm 2.52\text{E}+00$ & $4.43\text{E}+00 \pm 1.79\text{E}+00$ & $\mathbf{5.04\text{E}-01} \pm 5.00\text{E}-01$\\
+		Omni\_test & $2.12\text{E}+00 \pm 4.85\text{E}-01$ & $1.50\text{E}+00 \pm 2.42\text{E}-01$ & $\mathbf{1.65\text{E}-01} \pm 7.35\text{E}-02$\\
+		\bottomrule
+	\end{tabular}
+	\begin{tablenotes}
+		\item[*] The value in bold means the best result.
+	\end{tablenotes}
+\end{table*}
+\renewcommand\arraystretch{0.9}
+\begin{table*}[htbp]
+	\scriptsize
+	\centering
+	\caption{$\text{IGDF} (\text{mean} \pm \text{std})$}\label{tab: IGDF}
+	\begin{tabular}{cccc}
+		\toprule
+		CEC2019 & NSGA-II & DN-NSGA-II & SPD-DN-NSGA-II \\
+		\midrule
+		MMF1 & $\mathbf{2.88\text{E}-03} \pm 2.34\text{E}-04$ & $3.74\text{E}-03 \pm 2.61\text{E}-04$ & $6.70\text{E}-03 \pm 1.72\text{E}-02$\\
+		MMF2 & $\mathbf{6.65\text{E}-03} \pm 6.28\text{E}-03$ & $1.05\text{E}-02 \pm 1.27\text{E}-02$ & $7.99\text{E}-03 \pm 4.37\text{E}-03$\\
+		MMF3 & $8.44\text{E}-03 \pm 1.20\text{E}-02$ & $1.48\text{E}-02 \pm 1.60\text{E}-02$ & $\mathbf{7.03\text{E}-03} \pm 2.78\text{E}-03$\\
+		MMF4 & $\mathbf{2.61\text{E}-03} \pm 1.63\text{E}-04$ & $3.17\text{E}-03 \pm 2.11\text{E}-04$ & $3.79\text{E}-03 \pm 3.50\text{E}-03$\\
+		MMF5 & $\mathbf{2.60\text{E}-03} \pm 1.15\text{E}-04$ & $3.40\text{E}-03 \pm 2.12\text{E}-04$ & $1.40\text{E}-02 \pm 5.96\text{E}-02$\\
+		MMF6 & $\mathbf{2.66\text{E}-03} \pm 1.34\text{E}-04$ & $3.89\text{E}-03 \pm 1.95\text{E}-04$ & $4.21\text{E}-03 \pm 3.00\text{E}-03$\\
+		MMF7 & $\mathbf{2.67\text{E}-03} \pm 1.40\text{E}-04$ & $3.94\text{E}-03 \pm 3.13\text{E}-04$ & $4.94\text{E}-03 \pm 5.42\text{E}-03$\\
+		MMF8 & $\mathbf{2.65\text{E}-03} \pm 1.44\text{E}-04$ & $3.70\text{E}-03 \pm 4.22\text{E}-04$ & $4.80\text{E}-03 \pm 4.50\text{E}-03$\\
+		MMF9 & $\mathbf{1.07\text{E}-02} \pm 5.50\text{E}-04$ & $1.45\text{E}-02 \pm 4.22\text{E}-04$ & $1.59\text{E}-02 \pm 1.42\text{E}-03$\\
+		MMF10 & $\mathbf{1.91\text{E}-01} \pm 3.02\text{E}-03$ & $1.95\text{E}-01 \pm 2.81\text{E}-02$ & $1.95\text{E}-01 \pm 9.52\text{E}-03$\\
+		MMF11 & $\mathbf{9.50\text{E}-02} \pm 4.62\text{E}-04$ & $9.79\text{E}-02 \pm 1.42\text{E}-02$ & $1.63\text{E}-01 \pm 3.40\text{E}-01$\\
+		MMF12 & $8.36\text{E}-02 \pm 4.41\text{E}-03$ & $\mathbf{8.32\text{E}-02} \pm 3.61\text{E}-03$ & $1.27\text{E}-01 \pm 1.68\text{E}-01$\\
+		MMF13 & $\mathbf{1.46\text{E}-01} \pm 1.10\text{E}-03$ & $1.49\text{E}-01 \pm 1.91\text{E}-03$ & $1.51\text{E}-01 \pm 4.10\text{E}-02$\\
+		MMF14 & $1.14\text{E}-01 \pm 7.62\text{E}-03$ & $1.11\text{E}-01 \pm 6.40\text{E}-03$ & $\mathbf{1.08\text{E}-01} \pm 5.66\text{E}-02$\\
+		MMF15 & $2.17\text{E}-01 \pm 7.62\text{E}-03$ & $2.15\text{E}-01 \pm 6.40\text{E}-03$ & $\mathbf{2.05\text{E}-01} \pm 6.98\text{E}-02$\\
+		MMF1\_z & $\mathbf{2.66\text{E}-03} \pm 2.36\text{E}-04$ & $3.40\text{E}-03 \pm 3.47\text{E}-04$ & $3.94\text{E}-03 \pm 2.45\text{E}-03$\\
+		MMF1\_e & $1.23\text{E}-02 \pm 1.12\text{E}-02$ & $1.27\text{E}-02 \pm 1.02\text{E}-02$ & $\mathbf{4.78\text{E}-03} \pm 7.01\text{E}-03$\\
+		MMF14\_a & $1.26\text{E}-01 \pm 9.02\text{E}-03$ & $1.26\text{E}-01 \pm 1.08\text{E}-02$ & $\mathbf{1.16\text{E}-01} \pm 3.31\text{E}-02$\\
+		MMF15\_a & $\mathbf{2.16\text{E}-01} \pm 1.10\text{E}-02$ & $2.32\text{E}-01 \pm 1.18\text{E}-02$ & $2.22\text{E}-01 \pm 4.14\text{E}-02$\\
+		SYM\_PART\_simple & $\mathbf{1.05\text{E}-02} \pm 1.47\text{E}-03$ & $1.22\text{E}-02 \pm 1.06\text{E}-03$ & $1.74\text{E}-02 \pm 2.03\text{E}-02$\\
+		SYM\_PART\_rotated & $\mathbf{1.05\text{E}-02} \pm 1.25\text{E}-03$ & $1.52\text{E}-02 \pm 1.70\text{E}-03$ & $1.74\text{E}-02 \pm 1.21\text{E}-02$\\
+		Omni\_test & $\mathbf{5.37\text{E}-03} \pm 1.71\text{E}-04$ & $7.71\text{E}-03 \pm 4.07\text{E}-04$ & $7.40\text{E}-03 \pm 3.18\text{E}-04$\\
+		\bottomrule
+	\end{tabular}
+	\begin{tablenotes}
+		\item[*] The value in bold means the best result.
+	\end{tablenotes}
+\end{table*}
+
+\par The original decision-space visualizations are retained in Fig. \ref{Fig:ge00}. The six functions cover curved, disconnected, rotated, and highly periodic multimodal structures and supplement the quantitative metrics in Tables \ref{tab: rPSP}--\ref{tab: IGDF}.
+\begin{figure*}[htbp]
+	\centering
+	\subfloat[MMF1]{\label{Fig:MMF1}
+		\includegraphics[width=8cm]{MMF1.eps}} 
+	\subfloat[MMF5]{\label{Fig:MMF5}
+		\includegraphics[width=8cm]{MMF5.eps}}\\
+	\subfloat[MMF11]{\label{Fig:MMF11}
+		\includegraphics[width=8cm]{MMF11.eps}}
+	\subfloat[MMF14]{\label{Fig:MMF14}
+		\includegraphics[width=8cm]{MMF14.eps}}\\
+	\subfloat[SYM\_PART\_rotated]{\label{Fig:SYM_PART_rotated}
+		\includegraphics[width=8cm]{SYM_PART_rotated.eps}}
+	\subfloat[Omni\_test]{\label{Fig:Omni_test}
+		\includegraphics[width=8cm]{Omni_test.eps}}
+	\caption{Decision-space Pareto-set approximations for six representative CEC2019 functions.}
+	\label{Fig:ge00}
+\end{figure*}
+Across the displayed functions, the SPD-DN-NSGA-II populations cover more of the known decision-space branches than the two baselines in most cases. This original visual observation is consistent with the rPSP and IGDX results but does not establish uniform objective-space superiority.
+
+\par Friedman tests reject equal performance for rPSP ($\chi^2=31.18$, $p=1.69\times10^{-7}$), rHV ($\chi^2=28.78$, $p=5.64\times10^{-7}$), IGDX ($\chi^2=33.09$, $p=6.52\times10^{-8}$), and IGDF ($\chi^2=25.36$, $p=3.11\times10^{-6}$). Post-hoc Wilcoxon--Holm comparisons show that SPD-DN-NSGA-II differs from NSGA-II and DN-NSGA-II for rPSP ($p_H=1.31\times10^{-4}$ and $4.68\times10^{-3}$) and IGDX ($6.68\times10^{-6}$ and $9.41\times10^{-4}$). For rHV, the comparison is significant against NSGA-II ($1.53\times10^{-5}$) but not DN-NSGA-II ($0.0539$); for IGDF it is significant against DN-NSGA-II ($2.93\times10^{-4}$) but not NSGA-II ($0.371$). Directional problem-level counts in Fig. \ref{Fig:statistical_summary} confirm the principal decision-space advantage while exposing losses in the objective-space metrics.
+
+\begin{figure*}[htbp]
+	\centering
+	\includegraphics[width=0.93\textwidth]{algorithm_significance_summary.pdf}
+	\caption{Problem-level statistically significant wins, ties, losses, and unresolved cases for SPD-DN-NSGA-II against each comparator. Two-sided Mann--Whitney $U$ tests are Holm-corrected within each metric/comparator family; a win or loss additionally requires the corresponding median direction. Four three-objective problems are unresolved for the two-objective rHV implementation.}
+	\label{Fig:statistical_summary}
+\end{figure*}
+
+\subsection{Optimization of PMBRA}
+SPD-DN-NSGA-II was applied to the five-variable PMBRA problem after showing stronger decision-space diversity on most benchmarks. The variables $N_c$, $N_n$, $N_s$, $d_e$, and $g$ were optimized by minimizing $f_1$ and $f_2$, equivalently maximizing thrust density and the force-to-copper-loss index.
+\par Figure \ref{Fig:ge01} compares the three algorithms in reciprocal-objective space and in the corresponding physical-indicator space. Within the reported numerical study, the SPD-DN-NSGA-II solutions extend into regions with smaller reciprocal objectives and hence larger physical indicators. This comparison remains conditional on the DNN surrogate and the 2D thickness-scaling assumption.
+\begin{figure*}[htbp]
+	\centering
+	\subfloat[Objective Space Comparison.]{\label{objective_space_comparison}
+		\includegraphics[width=7cm]{objective_space_sci.eps}}
+	\subfloat[Physical Space Comparison.]{\label{physical_space_comparison}
+		\includegraphics[width=7cm]{physical_space_sci.eps}}
+	\caption{Numerical solution sets in (a) reciprocal-objective space and (b) physical-indicator space.}
+	\label{Fig:ge01}
+\end{figure*}
+
+\par Two constraint scenarios are considered in Fig. \ref{Fig:ge03}: a minimum thrust density of $\rho_F\geq1.00\times10^4\,\mathrm{N/dm^3}$ and a minimum force-to-copper-loss index of $\eta_F\geq20\,\mathrm{N/W}$. Subfigures \ref{Result_NSGAII_X_10000} and \ref{Result_NSGAII_Y_20} compare SPD-DN-NSGA-II with NSGA-II, whereas subfigures \ref{Result_DN_NSGAII_X_10000} and \ref{Result_DN_NSGAII_Y_20} compare it with DN-NSGA-II. Tables \ref{X_constraint} and \ref{Y_constraint} list points where the numerically approximated front meets the corresponding constraint boundary at each investigated air gap. Here, ``intersection'' means the boundary point selected from the computed front, not an independently validated prototype design.
+\begin{figure*}[htbp]
+	\centering
+	\subfloat[]{\label{Result_NSGAII_X_10000}
+		\includegraphics[width=7cm]{Result_NSGAII_X_10000.0.eps}}
+	\subfloat[]{\label{Result_NSGAII_Y_20}
+		\includegraphics[width=7cm]{Result_NSGAII_Y_20.0.eps}}\\
+	\subfloat[]{\label{Result_DN_NSGAII_X_10000}
+		\includegraphics[width=7cm]{Result_DN_NSGAII_X_10000.0.eps}}
+	\subfloat[]{\label{Result_DN_NSGAII_Y_20}
+		\includegraphics[width=7cm]{Result_DN_NSGAII_Y_20.0.eps}}
+	\caption{Computed physical-indicator fronts under thrust-density and force-to-copper-loss constraints.}
+	\label{Fig:ge03}	
+\end{figure*}
+\par The four original constraint-front panels are retained to show the recorded front geometry. Figure \ref{Fig:constraint_audit} adds a compact cross-panel audit of the selected boundary points versus air gap without replacing those original plots.
+\begin{figure*}[htbp]
+	\centering
+	\includegraphics[width=0.94\textwidth]{design_constraint_audit.pdf}
+	\caption{Constraint-boundary audit versus air gap for NSGA-II and DN-NSGA-II result files: (a) thrust density $\rho_F$ in $\mathrm{N/dm^3}$ and (b) force-to-copper-loss index $\eta_F$ in $\mathrm{N/W}$. Dotted horizontal lines show the investigated thresholds. Markers identify the algorithm and selection criterion; they are computed front-boundary records, not experimental measurements.}
+	\label{Fig:constraint_audit}	
+\end{figure*}
+\renewcommand\arraystretch{0.9}
+\begin{table*}[htbp]
+	\scriptsize
+	\centering
+	\caption{Computed front-boundary points satisfying $\rho_F\approx1.00\times10^4\,\mathrm{N/dm^3}$.}
+	\begin{tabular}{cccccccccc}
+		\toprule
+		$g(\mathrm{mm})$ & $d_e(\mathrm{mm})$ & $N_c$ & $N_n$ & $N_s$ & Vol($\mathrm{dm^3}$) & Pwr($\mathrm{W}$) & Thrust($\mathrm{N}$) & $\rho_F(\mathrm{N/dm^3})$ & $\eta_F(\mathrm{N/W})$ \\
+		\midrule
+		0.3 & 27.64 & 14 & 14 & 300 & 0.4473 & 111.27 & 4548.08 & 1.02E+04 & 4.09E+01 \\
+		0.4 & 24.96 & 14 & 14 & 300 & 0.3817 & 106.82 & 3833.59 & 1.00E+04 & 3.59E+01 \\
+		0.5 & 22.82 & 14 & 15 & 298 & 0.3341 & 110.88 & 3346.15 & 1.00E+04 & 3.02E+01 \\
+		0.6 & 23.75 & 14 & 19 & 300 & 0.3694 & 145.14 & 3703.18 & 1.00E+04 & 2.55E+01 \\
+		0.7 & 22.62 & 14 & 21 & 298 & 0.3477 & 157.89 & 3479.66 & 1.00E+04 & 2.20E+01 \\
+		0.8 & 19.13 & 14 & 21 & 299 & 0.2751 & 149.26 & 2756.20 & 1.00E+04 & 1.85E+01 \\
+		0.9 & 16.19 & 15 & 21 & 299 & 0.2246 & 153.55 & 2249.70 & 1.00E+04 & 1.47E+01 \\
+		1.0 & 11.01 & 16 & 21 & 300 & 0.1449 & 150.75 & 1450.62 & 1.00E+04 & 0.96E+01 \\
+		\bottomrule
+	\end{tabular}
+	\label{X_constraint}
+\end{table*}
+\renewcommand\arraystretch{0.9}
+\begin{table*}[htbp]
+	\scriptsize
+	\centering
+	\caption{Computed front-boundary points satisfying $\eta_F\approx20\,\mathrm{N/W}$.}
+	\begin{tabular}{cccccccccc}
+		\toprule
+		$g(\mathrm{mm})$ & $d_e(\mathrm{mm})$ & $N_c$ & $N_n$ & $N_s$ & Vol($\mathrm{dm^3}$) & Pwr($\mathrm{W}$) & Thrust($\mathrm{N}$) & $\rho_F(\mathrm{N/dm^3})$ & $\eta_F(\mathrm{N/W})$ \\
+		\midrule
+		0.3 & 11.00 & 14 & 15 & 289 & 0.1196 & 88.20 & 1825.89 & 1.53E+04 & 2.07E+01 \\
+		0.4 & 12.94 & 14 & 16 & 298 & 0.1532 & 99.92 & 2102.84 & 1.37E+04 & 2.10E+01 \\
+		0.5 & 15.66 & 14 & 19 & 300 & 0.2053 & 126.61 & 2579.22 & 1.26E+04 & 2.04E+01 \\
+		0.6 & 17.83 & 14 & 20 & 300 & 0.2475 & 138.90 & 2866.27 & 1.16E+04 & 2.06E+01 \\
+		0.7 & 19.46 & 14 & 20 & 300 & 0.2798 & 142.84 & 2932.96 & 1.05E+04 & 2.05E+01 \\
+		0.8 & 22.37 & 14 & 21 & 299 & 0.3435 & 157.49 & 3217.35 & 9.37E+03 & 2.04E+01 \\
+		0.9 & 27.93 & 16 & 21 & 299 & 0.4938 & 199.71 & 4078.41 & 8.26E+03 & 2.04E+01 \\
+		1.0 & 31.30 & 16 & 21 & 299 & 0.5884 & 209.51 & 4249.64 & 7.22E+03 & 2.03E+01 \\
+		\bottomrule
+	\end{tabular}
+	\label{Y_constraint}
+\end{table*}
+\par Tables \ref{X_constraint} and \ref{Y_constraint} show the following numerical trends with air gap $g$:
+\begin{enumerate}
+	\item[F1)] The computed designs exhibit a trade-off between thrust density $\rho_F$ and the force-to-copper-loss index $\eta_F$. The $\rho_F$ constraint favors compact designs, whereas the $\eta_F$ constraint favors lower copper loss per unit thrust.
+	\item[F2)] Within the investigated range, increasing $g$ reduces the simultaneous attainability of high $\rho_F$ and high $\eta_F$; this trend becomes pronounced above approximately $0.6\,\mathrm{mm}$ in the reported tables.
+	\item[F3)] The selected boundary points use changes in $N_c$, $N_n$, and silicon-steel pole width $d_e$ to compensate partly for a larger air gap. These are trends within the computed design domain and should not be interpreted as universal design rules.
+\end{enumerate}
+
+
+\section{Conclusion}
+This study investigated a simulation-based PMBRA design framework that combines a four-input DNN surrogate with SPD-DN-NSGA-II. A deterministic training pipeline, fixed hold-out, repeated five-fold validation, and intermediate-grid check were released. Over the 37.6--60.0-mm stack range, five-fold MAE and RMSE are 10.04--16.03 N and 13.20--21.06 N, while the intermediate-grid values are 3.95--6.30 N and 5.74--9.17 N.
+\par Under identical validation partitions, the DNN ranks first among five pre-specified low-complexity surrogate baselines. Its five-fold RMSE is 72.8\% below the next-best quadratic polynomial result, and its 168-point intermediate-grid RMSE is 91.6\% below the next-best $k$-nearest-neighbor result. This comparison supports the DNN for the investigated surrogate set without claiming superiority over all possible surrogate families.
+\par Run-level inference on the CEC2019 suite confirms statistically significant differences for all four metrics. Pairwise results support the strongest improvement in rPSP and IGDX, while rHV and IGDF remain comparator dependent. The PMBRA results illustrate numerical trade-offs between thrust density and a copper-loss-based force-to-power index; they do not demonstrate total electromechanical efficiency or physical reliability.
+\par The main limitations are the use of simulation-generated data, the conditional uniform-extrusion model-depth assumption, the lack of new 3D FEA and prototype measurements, and the absence of runtime benchmarking against recent MMOP baselines. The 168-point check improves interpolation evidence but is not a physical validation. Future work should quantify finite-stack end effects, repeat optimization under alternative SPD decay coefficients, and validate selected designs experimentally.
+\section*{Funding}
+This work was supported in part by the National Natural Science Foundation of China (No. 52575083, U24B2051), by the Project of the State Key Laboratory of Precision Manufacturing for Extreme Service Performance, Central South University (No. ZZYJKT202512), and by the Changsha Outstanding Young Scientific and Technological Talents Training Program (kq2601003).
+\section*{Data Availability Statement}
+The revision package contains the 4096-case FEA table, deterministic DNN scripts and prediction records, the complete simple-surrogate benchmark workbook, run-level benchmark metrics and statistical outputs, figure-generation code, and mixed-integer optimization implementation. Maxwell project files and prototype measurements are not publicly deposited; these restrictions define the reproducibility boundary of the present study.
+%% Non-BibTeX users please use
+%\begin{thebibliography}{}
+%%
+%% and use \bibitem to create references. Consult the Instructions
+%% for authors for reference list style.
+%%
+%\bibitem{RefJ}
+%% Format for Journal Reference
+%Author, Article title, Journal, Volume, page numbers (year)
+%% Format for books
+%\bibitem{RefB}
+%Author, Book title, page numbers. Publisher, place (year)
+%% etc
+%\end{thebibliography}
+
+\bibliographystyle{elsarticle-num}
+\bibliography{mybibfile1}
+
+\end{document}
+% end of file template.tex
+
