@@ -81,9 +81,7 @@ The updated package also includes the supplied standalone `NSGAII.m` and
 
 `benchmarks/cec2019/run_cec2019_comparison.m` contains the 22-problem, 31-run
 configuration and now has the supplied problem functions, reference PS/PF data,
-indicators, and all three algorithm sources. The manuscript uses `5000*n_var`
-evaluations while the supplied driver sets `10000*n_var`; resolve this before
-claiming exact paper reproduction. Generated results are Git-ignored.
+indicators, and all three algorithm sources.
 
 ## Statistical analysis
 
