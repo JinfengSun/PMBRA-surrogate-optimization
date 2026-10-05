@@ -1,0 +1,5 @@
+ANSYS Electronics Desktop / Maxwell 2D: 2025 R1
+Version reported in the revised manuscript: 2025.2.0
+Project header version: Version(2025, 2)
+Solver formulation: two-dimensional magnetostatic Cartesian XY
+

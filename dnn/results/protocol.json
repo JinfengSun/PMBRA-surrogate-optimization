@@ -1,0 +1,37 @@
+{
+  "training_dataset": "data/fea_4096/Force_Table_1_7.csv",
+  "training_rows": 4096,
+  "external_files": [
+    "de1.csv",
+    "Nc1.csv",
+    "Nn1.csv"
+  ],
+  "external_offgrid_rows": 168,
+  "features": [
+    "de [mm]",
+    "g [mm]",
+    "Nn []",
+    "Nc []"
+  ],
+  "target": "Force1.Force_y [kNewton]",
+  "cross_validation": "5-fold shuffled KFold, random_state=20260826",
+  "holdout": "80/20 shuffled split, random_state=42; indices saved in holdout_split_indices.npz",
+  "dnn_seeds": [
+    7,
+    21,
+    42,
+    84,
+    126
+  ],
+  "dnn_architecture": "4-64-32-16-1; ReLU hidden layers; linear output; Adam (learning rate 0.001, beta_1 0.9, beta_2 0.999, epsilon 1e-7); MSE; 150 epochs; batch size 32; shuffle enabled; no regularization or early stopping",
+  "preprocessing": "StandardScaler fitted only on each training partition; target not standardized",
+  "determinism": "CUDA disabled; TF_DETERMINISTIC_OPS=1; Python, NumPy, and TensorFlow seeds set per run",
+  "force_unit_conversion": "The 2-D Maxwell target corresponds to a 1 m model depth. Direct kN errors are multiplied by 1000 for N at 1 m depth. Device-level error in N equals the numerical kN/m error multiplied by stack depth N_s*0.2 mm.",
+  "hardware_mode": "CPU (CUDA disabled for reproducibility)",
+  "software": {
+    "python": "3.12.14 (main, Aug 25 2026, 14:01:42) [MSC v.1944 64 bit (AMD64)]",
+    "tensorflow": "2.21.0",
+    "numpy": "2.5.2",
+    "pandas": "3.0.5"
+  }
+}

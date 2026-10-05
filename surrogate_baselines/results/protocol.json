@@ -1,0 +1,20 @@
+{
+  "purpose": "Pre-specified comparison of simpler surrogate models against the existing DNN",
+  "selection_rule": "No model was selected, tuned, retained, or omitted based on whether it beat the DNN",
+  "cross_validation": "Same five shuffled KFold splits as DNN; random_state=20260826",
+  "external_validation": "Same 168 archived off-grid 2D FEA points as DNN",
+  "models": [
+    "Linear regression",
+    "Ridge regression",
+    "Quadratic polynomial",
+    "Shallow decision tree",
+    "kNN regression"
+  ],
+  "target": "Force1.Force_y [kNewton]",
+  "features": [
+    "de [mm]",
+    "g [mm]",
+    "Nn []",
+    "Nc []"
+  ]
+}

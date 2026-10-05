@@ -1,0 +1,29 @@
+{
+  "operating_system": "Windows 11 (recorded host build: Microsoft Windows NT 10.0.26200.0)",
+  "hardware": {
+    "cpu": "AMD Ryzen 7 5800H",
+    "physical_cores": 8,
+    "logical_processors": 16,
+    "memory_gb": 16
+  },
+  "python": "3.12.13",
+  "tensorflow": "2.21.0",
+  "numpy": "2.5.2",
+  "pandas": "3.0.5",
+  "scipy": "exact patch version not preserved; compatible range >=1.11,<2",
+  "scikit_learn": "exact patch version not preserved; compatible range >=1.3,<2",
+  "matplotlib": "exact patch version not preserved; compatible range >=3.8,<4",
+  "matlab": "R2024b (24.2.0.2712019)",
+  "matlab_toolboxes": {
+    "Statistics and Machine Learning Toolbox": "24.2 (R2024b)",
+    "Deep Learning Toolbox": "24.2 (R2024b)"
+  },
+  "ansys_electronics_desktop": "2025 R1 (version 2025.2.0 as reported in the revised manuscript; Project.aedt header: Version(2025, 2))",
+  "data_and_timing_protocol": {
+    "fea_training_cases": 4096,
+    "dnn_inference_batch_size": 1,
+    "timing_repetitions": 100,
+    "dnn_timed_scope": "pre-fitted input standardization plus feed-forward prediction; excludes model loading, file I/O, and training",
+    "maxwell_timed_scope": "one 2D magnetostatic solve plus force extraction; excludes application startup and project loading"
+  }
+}

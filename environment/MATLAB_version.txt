@@ -1,0 +1,4 @@
+MATLAB: R2024b (24.2.0.2712019)
+Statistics and Machine Learning Toolbox: 24.2 (R2024b)
+Deep Learning Toolbox: 24.2 (R2024b)
+
